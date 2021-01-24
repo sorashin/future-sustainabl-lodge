@@ -17,15 +17,9 @@ const MyCanvas = withControls(Canvas);
 const Stage = ({color, ...props})=>{
   const [geometries, center] = useModel('/stage.glb')
   // const [geometries_sample, center_sample] = useModel('/seat.glb')
-  const [hovered, set] = useState(false)
-  const hover = (e) => e.stopPropagation() && set(true)
-  const unhover = () => set(false)
-  const { scale } = useSpring({ scale: hovered ? 1.2 : 1, config: config.stiff })
-  
-  
   
   return (
-    <a.group {...props} onPointerOver={hover} onPointerOut={unhover} scale={scale.to((s) => [s, s, 1])} >
+    <a.group {...props} >
       {geometries.map((geom) => (
         <mesh key={geom.uuid} position={center} geometry={geom} castShadow receiveShadow rotation={[-Math.PI/2, Math.PI, Math.PI/2]}>
           <meshStandardMaterial {...material} roughness={1} shininess={0} color={color} />
@@ -37,9 +31,9 @@ const Stage = ({color, ...props})=>{
 
 const Shoes = ({ color, ...props }) => {
   const [geometries, center] = useModel('/shoes.glb')
-  const [hovered, set] = useState(false)
-  const hover = (e) => e.stopPropagation() && set(true)
-  const unhover = () => set(false)
+  const [hovered, setHover] = useState(false)
+  const hover = (e) => e.stopPropagation() && setHover(true)
+  const unhover = () => setHover(false)
   const { scale } = useSpring({ scale: hovered ? 1.2 : 1, config: config.stiff })
   return (
     <a.group {...props} onPointerOver={hover} onPointerOut={unhover} scale={scale.to((s) => [s, s, 1])}>
