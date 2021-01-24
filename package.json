@@ -13,6 +13,7 @@
     "react-postprocessing": "1.4.0",
     "react-scripts": "3.4.3",
     "react-three-fiber": "5.0.1",
+    "react-three-gui": "^0.4.2",
     "react-use-gesture": "5.2.4",
     "three": "0.124.0"
   },
