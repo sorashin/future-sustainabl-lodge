@@ -117,7 +117,7 @@ const Cabin = ({ color = 'white', seatColor = 'white', name, ...props }) => {
 }
 
 export default function App() {
-  const [y] = useYScroll([-100, 240], { domTarget: window })
+  const [y] = useYScroll([-100, 200], { domTarget: window })
   // const positionX = useControl('Position', { type: 'number', distance: 1 });
 
   return (
@@ -145,7 +145,7 @@ export default function App() {
             <Cabin color="white" seatColor="lightskyblue" name="3A" position={[0, 0, -6]} />
             <Cabin color="lightgray" seatColor="gray" name="4B" position={[0, 0, -9]} />
             <Cabin color="#676767" seatColor="sandybrown" name="5B" position={[0, 0, -12]} />
-            <Stage color="lightskyblue" position={[0, 0, -8]} />
+            <Stage color="lightskyblue" position={[0, 0, -6]} />
           </a.group>
           
           <EffectComposer multisampling={0}>
@@ -164,7 +164,7 @@ export default function App() {
         </Suspense>
       </MyCanvas>
       <Controls />
-      <aDom.div className="bar" style={{ height: y.interpolate([-100, 240], ['0%', '100%']) }} />
+      <aDom.div className="bar" style={{ height: y.interpolate([-100, 200], ['0%', '100%']) }} />
     </Controls.Provider>
   )
 }
