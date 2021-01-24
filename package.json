@@ -1,0 +1,32 @@
+{
+  "name": "r3f-train",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "src/index.js",
+  "dependencies": {
+    "@react-spring/three": "9.0.0-rc.3",
+    "@react-spring/web": "9.0.0-rc.3",
+    "lodash": "4.17.20",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-postprocessing": "1.4.0",
+    "react-scripts": "3.4.3",
+    "react-three-fiber": "5.0.1",
+    "react-use-gesture": "5.2.4",
+    "three": "0.124.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
