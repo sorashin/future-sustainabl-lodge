@@ -110,6 +110,19 @@ const Cabin = ({ color = 'white', seatColor = 'white', name, ...props }) => {
   )
 }
 
+const ShowCase = ({ color = 'white', seatColor = 'white', name, ...props }) => {
+  const [geometries, center] = useModel('/seat.glb')
+  return (
+    <group position={center}>
+        {geometries.map((geom, index) => (
+          <mesh key={geom.uuid} geometry={geom} castShadow receiveShadow>
+            <meshPhysicalMaterial {...material} color={index === 0 ? color : 'indianred'} opacity={index === 0 ? 1 : 0.2} />
+          </mesh>
+        ))}
+    </group>
+  )
+}
+
 export default function App() {
   const [y] = useYScroll([-100, 200], { domTarget: window })
   // const positionX = useControl('Position', { type: 'number', distance: 1 });
@@ -132,6 +145,7 @@ export default function App() {
           <planeGeometry args={[4, 1000]} />
           <meshBasicMaterial color="lightcoral" fog={false} transparent opacity={0.4} />
         </mesh>
+        
         <Suspense fallback={null}>
           <a.group position-z= {y.to((y) => (y / 500) * 25)}>
             <Cabin color="white" seatColor="lightskyblue" name="1A" position={[0, 0, 0]} />
@@ -154,6 +168,7 @@ export default function App() {
               rangeFalloff={0.001}
             />
             <SMAA />
+            {/* <ShowCase/> */}
           </EffectComposer>
         </Suspense>
       </MyCanvas>
