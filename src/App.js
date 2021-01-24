@@ -12,6 +12,26 @@ import './styles.css'
 
 const material = { transparent: true, roughness: 0.8, fog: true, shininess: 0, flatShading: false }
 
+
+const Stage = ({color, ...props})=>{
+  const [geometries, center] = useModel('/stage.glb')
+  // const [geometries_sample, center_sample] = useModel('/seat.glb')
+  const [hovered, set] = useState(false)
+  const hover = (e) => e.stopPropagation() && set(true)
+  const unhover = () => set(false)
+  const { scale } = useSpring({ scale: hovered ? 1.2 : 1, config: config.stiff })
+  console.log(geometries)
+  
+  return (
+    <a.group {...props} onPointerOver={hover} onPointerOut={unhover} scale={scale.to((s) => [s, s, 1])}>
+      {geometries.map((geom) => (
+        <mesh key={geom.uuid} position={center} geometry={geom} castShadow receiveShadow>
+          <meshStandardMaterial {...material} roughness={1} shininess={0} color={color} />
+        </mesh>
+      ))}
+    </a.group>
+  )
+}
 const Seat = ({ color, ...props }) => {
   const [geometries, center] = useModel('/seat.glb')
   const [hovered, set] = useState(false)
@@ -102,7 +122,9 @@ export default function App() {
             <Cabin color="white" seatColor="lightskyblue" name="3A" position={[0, 0, -58]} />
             <Cabin color="lightgray" seatColor="gray" name="4B" position={[0, 0, -84]} />
             <Cabin color="#676767" seatColor="sandybrown" name="5B" position={[0, 0, -110]} />
+            <Stage color="lightskyblue" position={[0, 0, -100]} rotation={[0, Math.PI/2, 0]}/>
           </a.group>
+          
           <EffectComposer multisampling={0}>
             <SSAO
               intensity={40}
