@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+// import * as THREE from 'three'
 import React, { Suspense, useState } from 'react'
 import { Canvas } from 'react-three-fiber'
 import { useSpring, config } from '@react-spring/core'
@@ -9,7 +9,7 @@ import Text from './helpers/Text'
 import useModel from './helpers/useModel'
 import useYScroll from './helpers/useYScroll'
 import './styles.css'
-import { Controls, useControl, withControls } from 'react-three-gui'
+import { Controls,  withControls } from 'react-three-gui'
 
 const material = { transparent: true, roughness: 0.8, fog: true, shininess: 0, flatShading: false }
 const MyCanvas = withControls(Canvas);
@@ -32,7 +32,10 @@ const Stage = ({color, ...props})=>{
 const Shoes = ({ color, ...props }) => {
   const [geometries, center] = useModel('/shoes.glb')
   const [hovered, setHover] = useState(false)
-  const hover = (e) => e.stopPropagation() && setHover(true)
+  const hover = (e) => {
+    e.stopPropagation()
+    setHover(true)
+  }
   const unhover = () => setHover(false)
   const { scale } = useSpring({ scale: hovered ? 1.2 : 1, config: config.stiff })
   return (
@@ -47,22 +50,22 @@ const Shoes = ({ color, ...props }) => {
 }
 
 
-const Seat = ({ color, ...props }) => {
-  const [geometries, center] = useModel('/seat.glb')
-  const [hovered, set] = useState(false)
-  const hover = (e) => e.stopPropagation() && set(true)
-  const unhover = () => set(false)
-  const { scale } = useSpring({ scale: hovered ? 1.2 : 1, config: config.stiff })
-  return (
-    <a.group {...props} onPointerOver={hover} onPointerOut={unhover} scale={scale.to((s) => [s, s, 1])}>
-      {geometries.map((geom) => (
-        <mesh key={geom.uuid} position={center} geometry={geom} castShadow receiveShadow> 
-          <meshPhysicalMaterial {...material} roughness={1} shininess={0} color={color} />
-        </mesh>
-      ))}
-    </a.group>
-  )
-}
+// const Seat = ({ color, ...props }) => {
+//   const [geometries, center] = useModel('/seat.glb')
+//   const [hovered, set] = useState(false)
+//   const hover = (e) => e.stopPropagation() && set(true)
+//   const unhover = () => set(false)
+//   const { scale } = useSpring({ scale: hovered ? 1.2 : 1, config: config.stiff })
+//   return (
+//     <a.group {...props} onPointerOver={hover} onPointerOut={unhover} scale={scale.to((s) => [s, s, 1])}>
+//       {geometries.map((geom) => (
+//         <mesh key={geom.uuid} position={center} geometry={geom} castShadow receiveShadow> 
+//           <meshPhysicalMaterial {...material} roughness={1} shininess={0} color={color} />
+//         </mesh>
+//       ))}
+//     </a.group>
+//   )
+// }
 
 const Quarter = ({ color, ...props }) => (
   <group {...props}>
@@ -85,7 +88,7 @@ const Row = ({ color, ...props }) => (
 )
 
 const Cabin = ({ color = 'white', seatColor = 'white', name, ...props }) => {
-  const [geometries, center] = useModel('/cabin.glb')
+  // const [geometries, center] = useModel('/cabin.glb')
   return (
     <group {...props}>
       <Text centerX={false} color="lightcoral" size={0.6} position={[2.6, 2, 10.6]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -110,22 +113,23 @@ const Cabin = ({ color = 'white', seatColor = 'white', name, ...props }) => {
   )
 }
 
-const ShowCase = ({ color = 'white', seatColor = 'white', name, ...props }) => {
-  const [geometries, center] = useModel('/seat.glb')
-  return (
-    <group position={center}>
-        {geometries.map((geom, index) => (
-          <mesh key={geom.uuid} geometry={geom} castShadow receiveShadow>
-            <meshPhysicalMaterial {...material} color={index === 0 ? color : 'indianred'} opacity={index === 0 ? 1 : 0.2} />
-          </mesh>
-        ))}
-    </group>
-  )
-}
+// const ShowCase = ({ color = 'white', seatColor = 'white', name, ...props }) => {
+//   const [geometries, center] = useModel('/seat.glb')
+//   return (
+//     <group position={center}>
+//         {geometries.map((geom, index) => (
+//           <mesh key={geom.uuid} geometry={geom} castShadow receiveShadow>
+//             <meshPhysicalMaterial {...material} color={index === 0 ? color : 'indianred'} opacity={index === 0 ? 1 : 0.2} />
+//           </mesh>
+//         ))}
+//     </group>
+//   )
+// }
 
 export default function App() {
   const [y] = useYScroll([-100, 200], { domTarget: window })
   // const positionX = useControl('Position', { type: 'number', distance: 1 });
+  
 
   return (
     <Controls.Provider>
